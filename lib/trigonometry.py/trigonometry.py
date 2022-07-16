@@ -59,6 +59,16 @@ def sine(rad, pairs=100):
 
     return result
 
+def cosine(rad, pairs=100):
+    """
+    Approximate the cosine of an angle measured in radians using the Taylor series of the sine function
+
+    :param rad: the measure of an angle in radians
+    :param pairs: the number of pairs of additions and subtractions to make in the Taylor series approximation
+    :return: an approximate value of the cosine function at rad
+    """
+    return sine(rad + pi() / 2, pairs)
+
 def factorial(n):
     if n < 0:
         raise ValueError("n must be greater than 0")
