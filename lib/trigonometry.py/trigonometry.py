@@ -18,3 +18,21 @@ def pi():
             flag = True
 
     return 4 * (1 - subtractions + additions)
+
+def rad(deg):
+    """
+    Given the measure of an angle in degrees, approximate the equivalent in radians
+
+    :param deg: the measure of an angle in degrees
+    :return: an approximate measure of the same angle in radians
+    """
+    return (deg / 360) * (2 * pi())
+
+def deg(rad):
+    """
+    Given the measure of an angle in radians, calculate the equivalent in radians
+
+    :param rad:
+    :return:
+    """
+    return (rad / 2 * pi()) * 360
