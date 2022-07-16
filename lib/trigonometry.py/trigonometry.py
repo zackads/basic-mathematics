@@ -36,3 +36,35 @@ def deg(rad):
     :return:
     """
     return (rad / 2 * pi()) * 360
+
+def sine(rad, pairs=100):
+    """
+    Approximate the sine of an angle measured in radians using the Taylor series of the sine function
+
+    https://en.wikipedia.org/wiki/Taylor_series
+
+    :param rad: the measure of an angle in radians
+    :param pairs: the number of pairs of additions and subtractions to make in the Taylor series approximation
+    :return: an approximate value of the sine function at rad
+    """
+    result = rad
+    flag = True
+    for k in range(3, pairs + 2, 2):
+        if flag:  # 3, 3, 7, 11, ...
+            result -= rad ** k / factorial(k)
+            flag = False
+        else:  # 5, 9, 13, ...
+            result += rad ** k / factorial(k)
+            flag = True
+
+    return result
+
+def factorial(n):
+    if n < 0:
+        raise ValueError("n must be greater than 0")
+
+    k = n - 1
+    while k >= 1:
+        n = n * k
+        k = k - 1
+    return n
