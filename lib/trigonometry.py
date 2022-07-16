@@ -1,23 +1,30 @@
-def pi():
+def pi_approx():
     """
-    The ratio of the circumference of a circle to its diameter, approximated using Leibniz' formula
+    The ratio of the circumference of a circle to its diameter,
+    approximated using the Bailey–Borwein–Plouffe formula
 
-    See https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80
+    See https://en.wikipedia.org/wiki/Bailey%E2%80%93Borwein%E2%80%93Plouffe_formula
 
-    :return: an approximation of pi accurate to six decimal places
+    :return: an approximation of pi accurate to 7 decimal places
     """
-    additions = 0
-    subtractions = 0
-    flag = True
-    for k in range(3, 10000006, 2):
-        if flag:  # 3, 7, 11, ...
-            subtractions += 1 / k
-            flag = False
-        else:  # 5, 9, 13, ...
-            additions += 1 / k
-            flag = True
 
-    return 4 * (1 - subtractions + additions)
+    def bailey_borwein_plouffe(k):
+        return (1 / 16 ** k) * (4 / (8 * k + 1) - 2 / (8 * k + 4) - 1 / (8 * k + 5) - 1 / (8 * k + 6))
+
+    return series(bailey_borwein_plouffe, 0, 100)
+
+
+def series(f, k=0, n=10):
+    """
+    Calculate the value of the series defined by f between k and n
+
+    :param f: the function that defines the terms
+    :param k: the lower limit
+    :param n: the upper limit
+    :return:
+    """
+    return sum([f(k) for k in range(k, n)])
+
 
 def rad(deg):
     """
@@ -26,7 +33,8 @@ def rad(deg):
     :param deg: the measure of an angle in degrees
     :return: an approximate measure of the same angle in radians
     """
-    return (deg / 360) * (2 * pi())
+    return (deg / 360) * (2 * pi_approx())
+
 
 def deg(rad):
     """
@@ -35,7 +43,8 @@ def deg(rad):
     :param rad:
     :return:
     """
-    return (rad / 2 * pi()) * 360
+    return round((rad / (2 * pi_approx())) * 360, 2)
+
 
 def sine(rad, pairs=100):
     """
@@ -59,6 +68,7 @@ def sine(rad, pairs=100):
 
     return result
 
+
 def cosine(rad, pairs=100):
     """
     Approximate the cosine of an angle measured in radians using the Taylor series of the sine function
@@ -67,7 +77,8 @@ def cosine(rad, pairs=100):
     :param pairs: the number of pairs of additions and subtractions to make in the Taylor series approximation
     :return: an approximate value of the cosine function at rad
     """
-    return sine(rad + pi() / 2, pairs)
+    return sine(rad + pi_approx() / 2, pairs)
+
 
 def factorial(n):
     if n < 0:
