@@ -1,6 +1,6 @@
 import unittest
 
-from lib.points import subtract, multiply, add, dilate
+from lib.points import subtract, multiply, add, dilate, float_range
 
 
 class PointsTests(unittest.TestCase):
@@ -60,6 +60,8 @@ class PointsTests(unittest.TestCase):
 
         self.assertEqual(dilation, (6, 15, 21))
 
+    def test_float_range(self):
+        self.assertEqual(float_range(0, 1), [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
 
 
 if __name__ == '__main__':
